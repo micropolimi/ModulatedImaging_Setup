@@ -308,8 +308,8 @@ class ModulatedMeasure(Measurement):
         self.pattern_gen.settings['last_frame'] = self.settings.DMD_last_frame.val
         
         texp = self.settings.t_acquisition.val
-        self.pattern_gen.settings['time_on'] = texp*1000-10 #50
         self.pattern_gen.settings['picture_period'] = texp*1000 + 20 #50
+        self.pattern_gen.settings['time_on'] = texp*1000-10 #50
         print('time_on', self.pattern_gen.settings['time_on'])
         print('picture_period', self.pattern_gen.settings['picture_period'])
         #self.pattern_gen.read_from_hardware()
