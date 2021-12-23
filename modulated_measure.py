@@ -44,7 +44,7 @@ class ModulatedMeasure(Measurement):
         self.settings.New('level_max', dtype=int, initial=150 )
         
         self.add_operation('ImportDMDSequence', self.import_DMD_sequence)
-        self.add_operation('AcquireBackground', self.acquire_background)
+        # self.add_operation('AcquireBackground', self.acquire_background)
                 
         self.camera = self.app.hardware['HamamatsuHardware'] 
         self.pattern_gen = self.app.hardware['VialuxDmdHW']
@@ -148,7 +148,7 @@ class ModulatedMeasure(Measurement):
                         self.h5file.flush() 
                                         
                     frame_index += 1
-                    print(frame_index) #TODO remove
+                    print(frame_index)
                     self.frame_index = frame_index 
                 
                     if self.interrupt_measurement_called:
@@ -344,21 +344,21 @@ class ModulatedMeasure(Measurement):
         self.pattern_gen.stop()
         print("End Projection")
         
-    def acquire_background(self):
-        if self.settings['DMD_trigger'] == True:
-            xdim = self.pattern_gen.vialux.get_height()
-            ydim = self.pattern_gen.vialux.get_width()
-            black_pattern = np.zeros([ydim, xdim])
-            npatt = 1
+    # def acquire_background(self):
+    #     if self.settings['DMD_trigger'] == True:
+    #         xdim = self.pattern_gen.vialux.get_height()
+    #         ydim = self.pattern_gen.vialux.get_width()
+    #         black_pattern = np.zeros([ydim, xdim])
+    #         npatt = 1
             
-            self.pattern_gen.vialux.allocate_memory(npatt=npatt, bitDepth = 8)
-            self.pattern_gen.vialux.load_patterns(black_pattern)
-            self.pattern_gen.settings['avail_memory'] = self.pattern_gen.vialux.get_available_memory()
-            self.pattern_gen.settings['pattern_num'] = npatt
-            self.pattern_gen.settings['first_frame'] = npatt-1
-            self.pattern_gen.settings['last_frame'] = npatt-1
+    #         self.pattern_gen.vialux.allocate_memory(npatt=npatt, bitDepth = 8)
+    #         self.pattern_gen.vialux.load_patterns(black_pattern)
+    #         self.pattern_gen.settings['avail_memory'] = self.pattern_gen.vialux.get_available_memory()
+    #         self.pattern_gen.settings['pattern_num'] = npatt
+    #         self.pattern_gen.settings['first_frame'] = npatt-1
+    #         self.pattern_gen.settings['last_frame'] = npatt-1
             
-            self.run()
+    #         self.run()
             
-        else:
-            print('This function is enabled only for DMD_trigger')
+    #     else:
+    #         print('This function is enabled only for DMD_trigger')
